@@ -1,0 +1,87 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 15px 40px;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  
+}
+
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo-spicy {
+  color: #ff007f; 
+  margin-right: 5px;
+}
+
+.logo-cinema {
+  color: #ffbf00; 
+}
+
+
+.navbar-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.navbar-links li {
+  font-family: 'Raleway';
+  color: #e0e0e0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navbar-links li:hover {
+  color: #ffffff;
+}
+
+
+.navbar-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.city-button,
+.navbar-login-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+
+.city-button {
+  background-color: transparent;
+  color: #ffbf00; 
+  border: 1px solid #ffbf00;
+}
+
+.city-button:hover {
+  background-color: #ffbf00;
+  color: #1e1e1e; 
+}
+
+
+.navbar-login-button {
+  background-color: #F30B5E; 
+  color: #ffffff;
+  border: none;
+}
+
+.navbar-login-button:hover {
+  opacity: 0.8;
+}
+
+
