@@ -65,14 +65,14 @@
     object-fit: cover;
 }
 
-.movie-info {
+.movie-card .movie-info {
     padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.movie-info h3 {
+.movie-card .movie-info h3 {
     margin-bottom: 10px;
     color: white;
 }
