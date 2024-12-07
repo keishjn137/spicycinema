@@ -3,13 +3,9 @@ import * as account from '../controllers/account.js';
 
 const accountRoutes = express.Router();
 
-
-// productRoutes.get('/:slug_url', productController.getProductBySlugURL);
-accountRoutes.get('/', account.getAll);
-accountRoutes.post('/sign-up', account.signUp);
-// productRoutes.post('/', productController.createProduct);
-// productRoutes.put('/', productController.updateProduct);
-// productRoutes.delete('/:id', productController.deleteProduct);
-// productRoutes.get('/category/:category', productController.getListProductByCategory);
+accountRoutes.get('/', account.GetAll);
+accountRoutes.post('/sign-up', account.SignUp);
+accountRoutes.put('/update-by-admin', account.UpdateByAdmin);
+accountRoutes.put('/update-by-user', account.UpdateByUser);
 
 export default accountRoutes;

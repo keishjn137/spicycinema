@@ -1,78 +1,45 @@
 import * as account from '../services/account.js';
 
-const getAll = async (req, res, next) => {
+const GetAll = async (req, res, next) => {
     try {
-        const accounts = await account.getAll();
+        const accounts = await account.GetAll();
         res.json(accounts);
     } catch (error) {
         next(error);
     }
 };
 
-const signUp = async (req, res, next) => {
+const SignUp = async (req, res, next) => {
     try {
-        const newAccount = await account.create(req);
+        const newAccount = await account.Create(req);
         res.json(newAccount);
     } catch (error) {
         next(error);
     }
 };
 
-//  const getProductBySlugURL = async (req, res, next) => {
-//     try {
-//         const product = await account.getProductBySlugURL(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const UpdateByAdmin = async (req, res, next) => {
+    try {
+        const dataAccount = await account.UpdateByAdmin(req);
+        res.json(dataAccount);
+    } catch (error) {
+        next(error);
+    }
+};
 
-// const getListProductByCategory = async (req, res, next) => {
-//     try {
-//         const product = await account.getListProductByCategory(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const UpdateByUser = async (req, res, next) => {
+    try {
+        const dataAccount = await account.UpdateByUser(req);
+        res.json(dataAccount);
+    } catch (error) {
+        next(error);
+    }
+};
 
-//  const createProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.createProduct(req);
-//         res.status(201).json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const updateProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.updateProduct(req);
-//         res.json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const deleteProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.deleteProduct(req);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         res.json({ message: 'Product deleted successfully' });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
 
 export {
-    getAll,
-    signUp
-    // ,
-    // getProductBySlugURL,
-    // createProduct,
-    // updateProduct,
-    // deleteProduct,
-    // getListProductByCategory
+    GetAll,
+    SignUp,
+    UpdateByAdmin,
+    UpdateByUser
 };
