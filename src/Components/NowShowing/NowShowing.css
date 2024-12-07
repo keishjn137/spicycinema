@@ -1,0 +1,158 @@
+.now-showing {
+    padding: 40px;
+    max-width: 1280px;
+    margin: 20px auto 0;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    font-family: 'Raleway';
+}
+
+.now-showing h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 28px;
+}
+
+.now-showing .movies-scroll {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 10px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+.movies-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.movies-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.movies-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.movies-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.movie-card {
+    flex: 0 0 auto;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.movie-card .movie-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.movie-details {
+    flex: 1;
+    width: 100%;
+}
+
+.movie-title {
+    color: white;
+  
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.movie-content{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.movie-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.format-info {
+    color: #cccccc;
+    margin: 0;
+    font-size: 14px;
+}
+
+.movie-card h3 {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.movie-card p {
+    color: #cccccc;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.now-showing .ticket-button {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-left: auto;
+}
+
+.ticket-button:hover {
+    background-color: #e67e22;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .now-showing {
+        padding: 20px;
+    }
+
+    .movie-card {
+        width: 250px;
+    }
+    
+    .movie-card img {
+        height: 350px;
+    }
+
+    .movie-info {
+        flex-direction: column;
+    }
+
+    .now-showing .ticket-button {
+        margin-top: 10px;
+        width: 100%;
+    }
+}
