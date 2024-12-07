@@ -45,7 +45,7 @@ export const NowShowing = () => {
                   <h3 style={{ textTransform: 'uppercase', fontSize: '16px' }}>{movie.name}</h3>
                   <div className='movie-content'>
                     <span style={{ display: 'flex', fontFamily: 'Montserrat', fontSize: '13px' }}><Box2d movieFormat={movie.genre} /> </span>
-                    <button className="ticket-button">Đặt vé</button>
+
                   </div>
 
                 </div>

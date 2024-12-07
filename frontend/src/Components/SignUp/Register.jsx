@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
 import Navbar from '../Navbar/Navbar';
+import { register } from '../../services/accountService';
 
 const Register = () => {
     const [style1, setStyle1] = useState('notfocus');
     const [style2, setStyle2] = useState('notfocus');
     const [style3, setStyle3] = useState('notfocus');
+    const [style4, setStyle4] = useState('notfocus');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
     const navigate = useNavigate();
 
-    
+
     const changeFocus1 = () => {
         setStyle1('focus1');
     };
@@ -25,6 +28,9 @@ const Register = () => {
 
     const changeFocus3 = () => {
         setStyle3('focus3');
+    };
+    const changeFocus4 = () => {
+        setStyle4('focus4');
     };
 
     const changeNotFocus1 = () => {
@@ -39,8 +45,37 @@ const Register = () => {
         setStyle3('notfocus');
     };
 
+    const changeNotFocus4 = () => {
+        setStyle4('notfocus');
+    };
+
+    const handleRegister = () => {
+        if (!username) {
+            alert("Thiếu tên người dùng")
+        }
+        if (!email) {
+            alert("Thiếu email")
+        }
+        if (!password) {
+            alert("Thiếu mật khẩu")
+        }
+        if (!passwordConfirm) {
+            alert("Thiếu xác nhận mật khẩu")
+        }
+        if (password === passwordConfirm) {
+            try {
+                register(username, password, email)
+                alert("Tạo thành công")
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            alert("Mật khẩu không trùng")
+        }
+    }
+
     return (
-      
+
         <div className="register_container">
             <div className="register">
                 <div className="register_content">
@@ -50,37 +85,24 @@ const Register = () => {
                     </span>
                     {successMessage && <p className="success_message">{successMessage}</p>}
                     <form >
-                        <div className='wrap_input_container'>
-                            <div className={`input_container ${style1}`}>
-                                <input
-                                    type="text"
-                                    placeholder="Họ"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    onBlur={changeNotFocus1}
-                                    onMouseDown={changeFocus1}
-                                    required
-                                />
-                            </div>
-                            <div className={`input_container ${style1}`}>
-                                <input
-                                    type="text"
-                                    placeholder="Tên đệm và tên"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    onBlur={changeNotFocus1}
-                                    onMouseDown={changeFocus1}
-                                    required
-                                />
-                            </div>
+                        <div className={`input_container ${style1}`}>
+                            <input
+                                type="text"
+                                placeholder="Tên người dùng"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                onBlur={changeNotFocus1}
+                                onMouseDown={changeFocus1}
+                                required
+                            />
                         </div>
 
                         <div className={`input_container ${style2}`}>
                             <input
                                 type="Email"
                                 placeholder="Email"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 onBlur={changeNotFocus2}
                                 onMouseDown={changeFocus2}
                                 required
@@ -88,32 +110,32 @@ const Register = () => {
                         </div>
 
                         <div className='pass_input_container'>
-                        <div className={`input_container ${style3}`}>
-                            <input
-                                type="password"
-                                placeholder="Mật khẩu"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                onBlur={changeNotFocus3}
-                                onMouseDown={changeFocus3}
-                                required
-                            />
-                        </div>
-                        <div className={`input_container ${style3}`}>
-                            <input
-                                type="password"
-                                placeholder="Nhập lại mật khẩu"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                onBlur={changeNotFocus3}
-                                onMouseDown={changeFocus3}
-                                required
-                            />
-                        </div>
+                            <div className={`input_container ${style3}`}>
+                                <input
+                                    type="password"
+                                    placeholder="Mật khẩu"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    onBlur={changeNotFocus3}
+                                    onMouseDown={changeFocus3}
+                                    required
+                                />
+                            </div>
+                            <div className={`input_container ${style4}`}>
+                                <input
+                                    type="password"
+                                    placeholder="Nhập lại mật khẩu"
+                                    value={passwordConfirm}
+                                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                                    onBlur={changeNotFocus4}
+                                    onMouseDown={changeFocus4}
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        
-                        <button type="submit" className="register_button">Đăng ký</button>
+
+                        <button onClick={() => { handleRegister() }} className="register_button">Đăng ký</button>
                     </form>
                 </div>
             </div>

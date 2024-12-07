@@ -70,7 +70,7 @@
     outline: none;
 }
 
-.focus1, .focus2, .focus3 {
+.focus1, .focus2, .focus3 .focus4{
     border: 2px solid #6B68FC;
 }
 

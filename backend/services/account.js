@@ -11,7 +11,28 @@ const getAll = (async (req, res) => {
         return { message: 'Lỗi lấy danh sách tài khoản !' };
     }
 
+});
+
+const create = (async (req, res) => {
+    let { username, password, gmail } = req.body;
+
+    const checkExistAccount = await database.query(`SELECT * FROM ACCOUNT WHERE username = '${username}'`)
+    const checkExistGmail = await database.query(`SELECT * FROM ACCOUNT WHERE gmail = '${gmail}'`)
+    if (checkExistGmail.rows.length == 1) {
+        return { message: 'Gmail này đã được dùng để đăng ký ! Vui lòng chọn gmail khác !' };
+    }
+    if (checkExistAccount.rows.length == 0) {
+        const result = await database.query(
+            `INSERT INTO ACCOUNT (username , password, gmail) 
+            VALUES ('${username}' ,'${password}' , '${gmail}' )`);
+
+        return { message: 'Tạo tài khoản thành công' };
+    }
+    else {
+        return { message: 'Tài khoản đã tồn tại ! Vui lòng đổi username khác !' };
+    }
 });  // xong
+// xong
 
 // // Lấy sản phẩm theo url
 // const getProductBySlugURL = (async (req, res) => {
@@ -47,7 +68,7 @@ const getAll = (async (req, res) => {
 //     {
 //         return { message: 'Vui lòng nhập đủ thông tin' };
 //     }
-    
+
 //     const checkExist = await database.query(`SELECT * FROM PRODUCTS WHERE name = '${name}'`)
 //     if(checkExist.rows.length === 1){
 
@@ -58,7 +79,7 @@ const getAll = (async (req, res) => {
 //         `INSERT INTO products (name, brandname , price , category , quantity , slug_url) 
 //         VALUES ('${name}', '${brandname}', ${price} , '${category}', ${quantity} , '${slugified}') 
 //         RETURNING *`);
-        
+
 //    return result.rows[0];
 // }); // xong
 
@@ -97,7 +118,8 @@ const getAll = (async (req, res) => {
 
 
 export {
-    getAll
+    getAll,
+    create
     // ,
     // getProductBySlugURL,
     // createProduct,

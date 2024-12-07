@@ -9,6 +9,15 @@ const getAll = async (req, res, next) => {
     }
 };
 
+const signUp = async (req, res, next) => {
+    try {
+        const newAccount = await account.create(req);
+        res.json(newAccount);
+    } catch (error) {
+        next(error);
+    }
+};
+
 //  const getProductBySlugURL = async (req, res, next) => {
 //     try {
 //         const product = await account.getProductBySlugURL(req);
@@ -58,7 +67,8 @@ const getAll = async (req, res, next) => {
 // };
 
 export {
-    getAll
+    getAll,
+    signUp
     // ,
     // getProductBySlugURL,
     // createProduct,

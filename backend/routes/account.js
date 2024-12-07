@@ -6,6 +6,7 @@ const accountRoutes = express.Router();
 
 // productRoutes.get('/:slug_url', productController.getProductBySlugURL);
 accountRoutes.get('/', account.getAll);
+accountRoutes.post('/sign-up', account.signUp);
 // productRoutes.post('/', productController.createProduct);
 // productRoutes.put('/', productController.updateProduct);
 // productRoutes.delete('/:id', productController.deleteProduct);
