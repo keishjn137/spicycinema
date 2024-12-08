@@ -11,6 +11,7 @@ import * as bill from '../services/bill.js';
 
 const getBaseOnAccount = async (req, res, next) => {
     let id = req.params.id;
+
     try {
         const bills = await bill.getBaseOnAccount(id);
         res.json(bills);
@@ -19,55 +20,30 @@ const getBaseOnAccount = async (req, res, next) => {
     }
 };
 
-//  const getProductBySlugURL = async (req, res, next) => {
-//     try {
-//         const product = await account.getProductBySlugURL(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const getListSeatByShowTime = async (req, res, next) => {
+    let {nameMovie , nameBranch , showtime} = req.body
+    try {
+        const bills = await bill.GetSeatsBookingByShowTime(nameMovie , nameBranch , showtime);
+        res.json(bills);
+    } catch (error) {
+        next(error);
+    }
+};
 
-// const getListProductByCategory = async (req, res, next) => {
-//     try {
-//         const product = await account.getListProductByCategory(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const createProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.createProduct(req);
-//         res.status(201).json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const updateProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.updateProduct(req);
-//         res.json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const deleteProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.deleteProduct(req);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         res.json({ message: 'Product deleted successfully' });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const Create = async (req, res, next) => {
+    let {idAccount , nameMovie , nameBranch , showtime , seat} = req.body
+    console.log(req.body)
+    try {
+        const bills = await bill.Create(idAccount , nameMovie , nameBranch , showtime , seat);
+        res.json(bills);
+    } catch (error) {
+        next(error);
+    }
+};
 
 export {
     getAll,
-    getBaseOnAccount
+    getBaseOnAccount,
+    getListSeatByShowTime,
+    Create
 };

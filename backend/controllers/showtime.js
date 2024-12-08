@@ -16,61 +16,19 @@ const getAll = async (req, res, next) => {
         next(error);
     }
 };
-
-//  const getProductBySlugURL = async (req, res, next) => {
-//     try {
-//         const product = await account.getProductBySlugURL(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-// const getListProductByCategory = async (req, res, next) => {
-//     try {
-//         const product = await account.getListProductByCategory(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const createProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.createProduct(req);
-//         res.status(201).json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const updateProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.updateProduct(req);
-//         res.json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const deleteProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.deleteProduct(req);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         res.json({ message: 'Product deleted successfully' });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+// Load danh sách giờ chiếu phim theo chi nhánh , bộ phim , dưới 15 phút trước khi phim chiếu
+const getAllTimeNow = async (req, res, next) => {
+    let {idBranch , idMovie} = req.body
+    try {
+        const showtimes = await showtime.getAllTimeNow(idBranch , idMovie);
+        console.log(showtimes)
+        res.json(showtimes);
+    } catch (error) {
+        next(error);
+    }
+};
 
 export {
     getAll,
-    // ,
-    // getProductBySlugURL,
-    // createProduct,
-    // updateProduct,
-    // deleteProduct,
-    // getListProductByCategory
+    getAllTimeNow
 };

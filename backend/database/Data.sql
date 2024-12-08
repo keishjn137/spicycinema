@@ -12,6 +12,13 @@ VALUES
  , 'https://m.media-amazon.com/images/I/71cAOfmWHhL._AC_UF894,1000_QL80_.jpg' 
 , 'https://i.pinimg.com/736x/d7/67/70/d76770962774fbd357aefed75bd3fae4.jpg')
 
+INSERT INTO Movie (Name, Genre, Duration, Price, Directors, Actors)
+VALUES 
+('Inception', 'Sci-Fi', 120, 120000 , 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt'),
+('Titanic', 'Romance', 166, 75000, 'James Cameron', 'Leonardo DiCaprio, Kate Winslet'),
+('The Dark Knight', 'Action', 165, 97000, 'Christopher Nolan', 'Christian Bale, Heath Ledger');
+
+
 INSERT INTO BranchCompany (Name, Address)
 VALUES 
 ('Chi Nhánh Sala Quận 1' , '299 , Sala Quận 1 , TP.HCM'),
@@ -22,6 +29,32 @@ INSERT INTO ShowtimeManagement (IDBranch, IDMovie , ShowTime)
 VALUES 
 (1 , 1 , '2024-12-7 19:00:00'),
 (1 , 1 , '2024-12-7 22:00:00')
+
+INSERT INTO ShowtimeManagement (IDBranch, IDMovie, Showtime)
+VALUES 
+(1, 1, '2024-12-07 14:30:00'),
+(1, 2, '2024-12-08 18:00:00'),
+(1, 3, '2024-12-09 20:00:00'),
+(1, 4, '2024-12-10 16:00:00'),
+
+
+(2, 1, '2024-12-07 15:00:00'),
+(2, 2, '2024-12-08 19:00:00'),
+(2, 3, '2024-12-09 21:00:00'),
+(2, 4, '2024-12-10 17:00:00'),
+
+
+(3, 1, '2024-12-07 16:00:00'),
+(3, 2, '2024-12-08 20:00:00'),
+(3, 3, '2024-12-09 22:00:00'),
+(3, 4, '2024-12-10 18:00:00'),
+
+
+(4, 1, '2024-12-07 17:00:00'),
+(4, 2, '2024-12-08 21:00:00'),
+(4, 3, '2024-12-09 23:00:00'),
+(4, 4, '2024-12-10 19:00:00')
+
 
 INSERT INTO Bill (IDAccount, IDShowtimeManagement , Seat , Total)
 VALUES 

@@ -12,6 +12,7 @@ import seatRoutes from './routes/seat.js';
 dotenv.config();
 
 const app = express();
+
 const PORT = process.env.API_PORT || 5050;
 
 // Middleware để parse JSON từ body request

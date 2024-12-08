@@ -10,6 +10,7 @@ const getAll = async (req, res, next) => {
     }
 };
 
+
 const getById = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -55,5 +56,5 @@ export {
     getAll,
     getById,
     Create,
-    Update
+    Update,
 };
