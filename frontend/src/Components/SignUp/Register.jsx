@@ -17,65 +17,32 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+    const changeFocus1 = () => setStyle1('focus1');
+    const changeFocus2 = () => setStyle2('focus2');
+    const changeFocus3 = () => setStyle3('focus3');
+    const changeFocus4 = () => setStyle4('focus4');
 
-    const changeFocus1 = () => {
-        setStyle1('focus1');
-    };
+    const changeNotFocus1 = () => setStyle1('notfocus');
+    const changeNotFocus2 = () => setStyle2('notfocus');
+    const changeNotFocus3 = () => setStyle3('notfocus');
+    const changeNotFocus4 = () => setStyle4('notfocus');
 
-    const changeFocus2 = () => {
-        setStyle2('focus2');
-    };
-
-    const changeFocus3 = () => {
-        setStyle3('focus3');
-    };
-    const changeFocus4 = () => {
-        setStyle4('focus4');
-    };
-
-    const changeNotFocus1 = () => {
-        setStyle1('notfocus');
-    };
-
-    const changeNotFocus2 = () => {
-        setStyle2('notfocus');
-    };
-
-    const changeNotFocus3 = () => {
-        setStyle3('notfocus');
-    };
-
-    const changeNotFocus4 = () => {
-        setStyle4('notfocus');
-    };
-
-    const handleRegister = () => {
-        if (!username) {
-            alert("Thiếu tên người dùng")
+    const handleRegister = async () => {
+        if (password !== passwordConfirm) {
+            alert("Mật khẩu không trùng");
+            return;
         }
-        if (!email) {
-            alert("Thiếu email")
+
+        try {
+            await register(username, password, email);
+            alert("Tạo thành công");
+            navigate('/signin');
+        } catch (e) {
+            console.error(e);
         }
-        if (!password) {
-            alert("Thiếu mật khẩu")
-        }
-        if (!passwordConfirm) {
-            alert("Thiếu xác nhận mật khẩu")
-        }
-        if (password === passwordConfirm) {
-            try {
-                register(username, password, email)
-                alert("Tạo thành công")
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            alert("Mật khẩu không trùng")
-        }
-    }
+    };
 
     return (
-
         <div className="register_container">
             <div className="register">
                 <div className="register_content">
@@ -84,7 +51,7 @@ const Register = () => {
                         Đã có tài khoản ? <Link to="/signin" className="bold_item">Đăng nhập</Link>
                     </span>
                     {successMessage && <p className="success_message">{successMessage}</p>}
-                    <form >
+                    <form>
                         <div className={`input_container ${style1}`}>
                             <input
                                 type="text"
@@ -99,7 +66,7 @@ const Register = () => {
 
                         <div className={`input_container ${style2}`}>
                             <input
-                                type="Email"
+                                type="email"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -109,7 +76,7 @@ const Register = () => {
                             />
                         </div>
 
-                        <div className='pass_input_container'>
+                        <div className="pass_input_container">
                             <div className={`input_container ${style3}`}>
                                 <input
                                     type="password"
@@ -134,8 +101,19 @@ const Register = () => {
                             </div>
                         </div>
 
-
-                        <button onClick={() => { handleRegister() }} className="register_button">Đăng ký</button>
+                        <button
+                            onClick={handleRegister}
+                            className="register_button"
+                            disabled={
+                                !username.trim() || 
+                                !email.trim() || 
+                                !password.trim() || 
+                                !passwordConfirm.trim() || 
+                                password !== passwordConfirm
+                            }
+                        >
+                            Đăng ký
+                        </button>
                     </form>
                 </div>
             </div>
