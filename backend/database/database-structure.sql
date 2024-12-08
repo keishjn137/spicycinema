@@ -47,6 +47,5 @@ CREATE TABLE Bill (
     Total INT NOT NULL CHECK (Total > -1)
 );
 
-SELECT CURRENT_TIMESTAMP
 
 

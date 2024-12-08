@@ -1,6 +1,7 @@
-import { query } from 'express';
 import database from '../database/dbconfig.js';
 import FormattedDateTime from '../utils/ConvertFormatTime.js'
+
+
 
 const queryBillDetail = 
         `SELECT 
@@ -59,8 +60,7 @@ const getBaseOnAccount = (async (idAccount) => {
 
 
 // cái này đem qua movies
-const GetSeatsBookingByShowTime= (async (nameMovie , nameBranch , showtime) => {
-   
+const GetSeatsBookingByShowTime = (async (nameMovie , nameBranch , showtime) => {
     try {
         const result = await database.query(`
         SELECT 
@@ -88,13 +88,22 @@ const GetSeatsBookingByShowTime= (async (nameMovie , nameBranch , showtime) => {
     }
 })
 
-// cái này đem qua showtimes
-const CheckDuplicateSeatByShowtime = (async (nameMovie , nameBranch , showtime)=> {
+const CheckDuplicateSeatInBill = (async (nameMovie , nameBranch , showtime , seat)=> {
     const check = await database.query(`
-         SELECT * FROM ShowtimeManagement 
+        SELECT 
+            bill.Seat
+        FROM 
+            Bill bill
+        JOIN 
+            ShowtimeManagement showtime ON bill.IDShowtimeManagement = showtime.ID
+        WHERE bill.IDShowtimeManagement IN
+        (
+            SELECT ID FROM ShowtimeManagement 
             WHERE IDBranch = (SELECT ID FROM BranchCompany WHERE Name = '${nameBranch}')
             AND IDMovie = (SELECT ID FROM Movie WHERE Name = '${nameMovie}')
-            AND showtime = TIMESTAMP '${showtime}'
+        )
+        AND showtime.showtime = TIMESTAMP '${showtime}'
+        AND bill.Seat = '${seat}'
         `)
     if(check.rows.length == 1){
         return true
@@ -110,7 +119,7 @@ const Update = (async (req) => {
         const result = await database.query(`
             UPDATE BILL
             SET showtime = ${showtime}') 
-                WHERE username = '${username}'`
+            WHERE username = '${username}'`
         );
         return result.rows;
     } catch (error) {
@@ -120,13 +129,24 @@ const Update = (async (req) => {
 });
 
 
-const Create = (async (req) => {
-    let { idAccount , idShowtimeManagement  , seat } = req.body; 
+
+const Create = (async (idAccount , nameMovie , nameBranch , showtime , seat) => {
+    if(await CheckDuplicateSeatInBill( nameMovie , nameBranch , showtime , seat)){
+        return { message: 'Thanh toán không thành công do đã có khách hàng khác đặt vé thuộc ghế đó rồi !' };
+    }
     try {
         const result = await database.query(`
-            INSERT INTO BILL (IDAccount , IDShowtimeManagement , Seat) 
-            VALUES ( ${idAccount}, ${idShowtimeManagement} , ${seat}  )
-                RETURNING *`
+            INSERT INTO BILL (IDAccount , IDShowtimeManagement , Seat , Total) 
+            VALUES ( ${idAccount}, 
+            (
+            SELECT ID FROM ShowtimeManagement
+            WHERE IDBranch = (SELECT ID FROM BranchCompany WHERE Name = '${nameBranch}')
+            AND IDMovie = (SELECT ID FROM Movie WHERE Name = '${nameMovie}')
+            AND showtime = TIMESTAMP '${showtime}'
+            ) , 
+            '${seat}',
+            (SELECT PRICE FROM MOVIE WHERE Name  = '${nameMovie}')
+            )`
         );
         return result.rows;
     } catch (error) {

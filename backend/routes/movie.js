@@ -3,13 +3,8 @@ import * as movie from '../controllers/movie.js';
 
 const movieRoutes = express.Router();
 
-
-// productRoutes.get('/:slug_url', productController.getProductBySlugURL);
 movieRoutes.get('/', movie.getAll);
 movieRoutes.get('/:id', movie.getById);
-// productRoutes.post('/', productController.createProduct);
-// productRoutes.put('/', productController.updateProduct);
-// productRoutes.delete('/:id', productController.deleteProduct);
-// productRoutes.get('/category/:category', productController.getListProductByCategory);
-
+movieRoutes.post('/', movie.Create);
+movieRoutes.put('/:id', movie.Update);
 export default movieRoutes;
