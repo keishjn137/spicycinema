@@ -9,6 +9,16 @@ import * as bill from '../services/bill.js';
     }
 };
 
+const getBaseOnAccount = async (req, res, next) => {
+    let id = req.params.id;
+    try {
+        const bills = await bill.getBaseOnAccount(id);
+        res.json(bills);
+    } catch (error) {
+        next(error);
+    }
+};
+
 //  const getProductBySlugURL = async (req, res, next) => {
 //     try {
 //         const product = await account.getProductBySlugURL(req);
@@ -58,11 +68,6 @@ import * as bill from '../services/bill.js';
 // };
 
 export {
-    getAll
-    // ,
-    // getProductBySlugURL,
-    // createProduct,
-    // updateProduct,
-    // deleteProduct,
-    // getListProductByCategory
+    getAll,
+    getBaseOnAccount
 };
