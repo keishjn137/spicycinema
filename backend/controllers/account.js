@@ -18,6 +18,18 @@ const SignUp = async (req, res, next) => {
     }
 };
 
+const SignIn = async (req, res, next) => {
+    let {username , password} = req.body ;
+    try {
+        const dataSignIn = await account.SignIn(username , password);
+        console.log('Đăng nhập thành công !')
+        res.json(dataSignIn)
+    }
+        catch (error) {
+        next(error);
+    }
+};
+
 const UpdateByAdmin = async (req, res, next) => {
     try {
         const dataAccount = await account.UpdateByAdmin(req);
@@ -41,5 +53,6 @@ export {
     GetAll,
     SignUp,
     UpdateByAdmin,
-    UpdateByUser
+    UpdateByUser,
+    SignIn
 };
