@@ -74,11 +74,11 @@ const MovieDetail = () => {
 
     function formatDateHour(dateString) {
         const date = new Date(dateString);
-        const year = date.getFullYear().toString().slice(-2); // Lấy 2 chữ số cuối của năm
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0, cần +1
-        const day = String(date.getDate()).padStart(2, '0'); // Ngày
-        const hours = String(date.getHours()).padStart(2, '0'); // Giờ
-        const minutes = String(date.getMinutes()).padStart(2, '0'); // Phút
+        const year = date.getFullYear().toString().slice(-2);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
 
         return `${year}:${month}:${day} ${hours}:${minutes}`;
     }
@@ -186,7 +186,7 @@ const MovieDetail = () => {
 
     const handlePaymentClick = () => {
         if (selectedSeats.length != 0) {
-            const data = { showTime, seat, movie };
+            const data = { showTime, selectedSeats, movie };
             navigate('/payment', { state: data })
         }
     }
@@ -210,12 +210,7 @@ const MovieDetail = () => {
                             <div className='line'></div>
                             <p><span style={{ color: '#979797' }}>Diễn viên: </span>{movie.actors}</p>
                         </div>
-                        <div className='movie-info-content2'>
-                            <span style={{ color: '#979797' }}>Nội dung:</span>
-                            <p>
-                                Sau sự kiện Thanos làm cho một nửa vũ trụ tan biến và khiến cho biệt đội Avengers thảm bại, những siêu anh hùng sống sót phải tham gia trận chiến cuối cùng trong Avengers: Endgame - tác phẩm điện ảnh đánh dấu sự khép lại sau 22 bộ phim của Marvel Studios.
-                            </p>
-                        </div>
+
                     </div>
 
                     <div className='order-container'>
@@ -350,10 +345,7 @@ const MovieDetail = () => {
                                                         <p className='order-info-title'>Ngày</p>
                                                         <p className='order-info-content'>{dateChoice ? formatDate(dateChoice) : ""}</p>
                                                     </td>
-                                                    <td>
-                                                        <p className='order-info-title'>Phòng</p>
-                                                        <p className='order-info-content'></p>
-                                                    </td>
+
                                                 </tr>
                                                 <tr style={{ marginTop: '12px' }}>
                                                     <td>

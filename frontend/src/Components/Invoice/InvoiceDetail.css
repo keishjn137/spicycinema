@@ -1,0 +1,82 @@
+.invoice-detail {
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  width: 411px;
+  height: 544px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.invoice-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.invoice-item {
+  margin-bottom: 20px;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 30px;
+}
+
+.item-info img{
+  width: 150px;
+  object-fit: cover;
+  height: 200px;
+}
+
+.item-code {
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 5px;
+  flex: 1;
+  height: 50px;
+}
+
+.remove-btn {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  height: 70px;
+  flex: 0.4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.remove-btn:hover {
+  background-color: #ff8533;
+}
+
+.discount-text {
+  color: orange;
+}
+
+.price-details p,
+.total-amount p {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.total-amount {
+  border-top: 1px solid #555;
+  margin-top: 20px;
+  padding-top: 20px;
+}

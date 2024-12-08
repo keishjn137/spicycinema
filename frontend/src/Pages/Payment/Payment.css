@@ -1,0 +1,21 @@
+.payment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #121212; 
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  
+  .payment-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }

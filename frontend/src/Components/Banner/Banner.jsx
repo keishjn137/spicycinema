@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Banner.css';
 
 // Import hình ảnh
@@ -7,68 +7,63 @@ import spidermanImage from '../../asset/images/spiderman.png';
 import deadpoolImage from '../../asset/images/deadpool.png';
 import nunImage from '../../asset/images/nun.png';
 import OPImage from '../../asset/images/red.png';
+import { getAllMovie } from '../../services/movieService';
+
 const Banner = () => {
-  const movies = [
-    {
-      title: 'Avengers',
-      subtitle: 'End Game',
-      releaseDate: '26/4/2019',
-      imageUrl: avengerImage,
-    },
-    {
-      title: 'Spider-Man',
-      subtitle: 'Far From Home',
-      releaseDate: '15/7/2019',
-      imageUrl: spidermanImage,
-    },
-    {
-      title: 'Deadpool & Wolverine',
-      subtitle: 'Mutant Reunion',
-      releaseDate: '10/2/2024',
-      imageUrl: deadpoolImage,
-    },
-    {
-      title: 'The Nun',
-      subtitle: 'The Conjuring Universe',
-      releaseDate: '7/9/2018',
-      imageUrl: nunImage,
-    },
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
-    {
-      title: 'One Piece: Red',
-      subtitle: 'One Piece',
-      releaseDate: '7/9/2018',
-      imageUrl: OPImage,
-    },
-  ];
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const movieList = await getAllMovie();
+        setMovies(movieList.data);
+        if (movieList.data.length > 0) {
+          setSelectedMovie(movieList.data[0]);
+        }
+      } catch (error) {
+        console.error('Lỗi khi tải danh sách phim:', error);
+      }
+    };
 
-  const [selectedMovie, setSelectedMovie] = useState(movies[0]);
+    fetchMovies();
+  }, []);
+
+  console.log(selectedMovie)
+
+  if (!selectedMovie) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
       className="banner"
       style={{
-        backgroundImage: `url(${selectedMovie.imageUrl})`,
+        backgroundImage: `url(${selectedMovie.url_image_banner})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-
       }}
     >
-      <div style={{
-        backgroundColor: 'black',
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        opacity: '0.6'
-      }}>
-
-      </div>
+      <div
+        style={{
+          backgroundColor: 'black',
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          opacity: '0.6',
+        }}
+      ></div>
       <div className="banner-left">
-        <h1 style={{ margin: '0', fontSize: '56px', textTransform: 'uppercase', fontWeight: '800' }}>{selectedMovie.title}</h1>
-        <h2 style={{ margin: '0', fontSize: '36px', textTransform: 'uppercase', fontWeight: '500' }}>{selectedMovie.subtitle}</h2>
-        <p style={{ marginTop: '36px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700' }} className='banner-premiere'>KHỞI CHIẾU TẠI RẠP</p>
-        <h3 className='day-movie'>{selectedMovie.releaseDate}</h3>
+        <h1 style={{ margin: '0', fontSize: '56px', textTransform: 'uppercase', fontWeight: '800' }}>
+          {selectedMovie.name}
+        </h1>
+        <p
+          style={{ marginTop: '36px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700' }}
+          className="banner-premiere"
+        >
+          KHỞI CHIẾU TẠI RẠP
+        </p>
         <div className="banner-buttons">
           <button className="details-button">Xem chi tiết</button>
           <button className="ticket-button">Đặt vé ngay</button>
@@ -79,10 +74,11 @@ const Banner = () => {
           {movies.map((movie, index) => (
             <div
               key={index}
-              className={`movie-slide ${selectedMovie.title === movie.title ? 'active' : ''}`}
+              className={`movie-slide ${selectedMovie.name === movie.name ? 'active' : ''
+                }`}
               onClick={() => setSelectedMovie(movie)}
             >
-              <img src={movie.imageUrl} alt={movie.title} />
+              <img src={movie.url_image_banner} alt={movie.name} />
             </div>
           ))}
         </div>
