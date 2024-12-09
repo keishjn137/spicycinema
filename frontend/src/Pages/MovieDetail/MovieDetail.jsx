@@ -29,11 +29,12 @@ const MovieDetail = () => {
     const [filteredShowtimes, setFilteredShowtimes] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [showTimeChoice, setShowTimeChoice] = useState();
+    const [selectedSeatsName, setSelectedSeatsName] = useState([]);
     const [seat, setSeat] = useState([]);
 
     const showTime = filteredShowtimes.find((st) => st.id == showTimeChoice)
     const [movie, setMovie] = useState();
-    console.log(selectedSeats)
+
 
     const { id } = useParams();
     useEffect(() => {
@@ -56,9 +57,24 @@ const MovieDetail = () => {
             }
         }
 
+
+
+
         fetchMovie();
         fetchBranch();
     }, []);
+
+    useEffect(() => {
+        if (selectedSeats.length > 0) {
+
+            const seatNames = [];
+            selectedSeats.forEach((item) => {
+                seatNames.push(convertSeatName(item))
+            });
+
+            setSelectedSeatsName(seatNames);
+        }
+    }, [selectedSeats]);
 
     const convertSeatName = (id) => {
         const seatData = seat.find((seat) => seat.id === id);
@@ -186,7 +202,7 @@ const MovieDetail = () => {
 
     const handlePaymentClick = () => {
         if (selectedSeats.length != 0) {
-            const data = { showTime, selectedSeats, movie ,placeChoice };
+            const data = { showTime, selectedSeatsName, movie, placeChoice };
             navigate('/payment', { state: data })
         }
     }

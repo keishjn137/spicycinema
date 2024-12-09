@@ -8,6 +8,7 @@ import deadpoolImage from '../../asset/images/deadpool.png';
 import nunImage from '../../asset/images/nun.png';
 import OPImage from '../../asset/images/red.png';
 import { getAllMovie } from '../../services/movieService';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   const [movies, setMovies] = useState([]);
@@ -64,8 +65,8 @@ const Banner = () => {
           KHỞI CHIẾU TẠI RẠP
         </p>
         <div className="banner-buttons">
-          <button className="details-button">Xem chi tiết</button>
-          <button className="ticket-button">Đặt vé ngay</button>
+          <Link style={{ textDecoration: 'none' }} to={`/movie/${selectedMovie.id}`} className="details-button">Xem chi tiết</Link>
+          <Link style={{ textDecoration: 'none' }} to={`/movie/${selectedMovie.id}`} className="ticket-button">Đặt vé ngay</Link>
         </div>
       </div>
       <div className="banner-right">

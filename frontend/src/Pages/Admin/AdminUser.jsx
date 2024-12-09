@@ -22,10 +22,9 @@ const AdminUser = () => {
             }
         };
 
-        fetchUsers(); // Gọi API khi component mount
+        fetchUsers();
     }, []);
 
-    // Lọc người dùng theo tên hoặc email khi nhập vào ô tìm kiếm
     const filteredUsers = users.filter(user =>
         user.username.toLowerCase().includes(search.toLowerCase()) ||
         user.gmail.toLowerCase().includes(search.toLowerCase())
@@ -37,11 +36,11 @@ const AdminUser = () => {
 
             <main className="admin-content">
                 <header className="admin-header">
-                    <input 
-                        type="text" 
-                        placeholder="Tìm kiếm..." 
-                        className="admin-search-bar" 
-                        value={search} 
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm..."
+                        className="admin-search-bar"
+                        value={search}
                         onChange={(e) => setSearch(e.target.value)} // Cập nhật giá trị tìm kiếm khi người dùng nhập
                     />
                     <div className="admin-user-info">

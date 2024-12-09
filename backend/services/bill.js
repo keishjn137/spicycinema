@@ -3,8 +3,8 @@ import FormattedDateTime from '../utils/ConvertFormatTime.js'
 
 
 
-const queryBillDetail = 
-        `SELECT 
+const queryBillDetail =
+    `SELECT 
             movie.Name AS MovieName,
             acc.Gmail AS Gmail,
             acc.Username AS Username,
@@ -27,10 +27,10 @@ const queryBillDetail =
 const FormattedData = (async (listData) => {
     const formattedData = listData.rows.map((item) => ({
         ...item,
-        showtime:FormattedDateTime(item.showtime),
+        showtime: FormattedDateTime(item.showtime),
         invoicingtime: FormattedDateTime(item.invoicingtime),
-      }));
-      return formattedData
+    }));
+    return formattedData
 })
 
 const getAll = (async () => {
@@ -43,7 +43,7 @@ const getAll = (async () => {
         return { message: 'Lỗi lấy danh hoá đơn !' };
     }
 
-});  
+});
 
 const getBaseOnAccount = (async (idAccount) => {
     let queryBillDetailByAccount = queryBillDetail + ` WHERE bill.IDAccount = ${idAccount}`
@@ -56,11 +56,11 @@ const getBaseOnAccount = (async (idAccount) => {
         return { message: 'Lỗi lấy danh hoá đơn !' };
     }
 
-});  
+});
 
 
 // cái này đem qua movies
-const GetSeatsBookingByShowTime = (async (nameMovie , nameBranch , showtime) => {
+const GetSeatsBookingByShowTime = (async (nameMovie, nameBranch, showtime) => {
     try {
         const result = await database.query(`
         SELECT 
@@ -88,7 +88,7 @@ const GetSeatsBookingByShowTime = (async (nameMovie , nameBranch , showtime) => 
     }
 })
 
-const CheckDuplicateSeatInBill = (async (nameMovie , nameBranch , showtime , seat)=> {
+const CheckDuplicateSeatInBill = (async (nameMovie, nameBranch, showtime, seat) => {
     const check = await database.query(`
         SELECT 
             bill.Seat
@@ -105,16 +105,16 @@ const CheckDuplicateSeatInBill = (async (nameMovie , nameBranch , showtime , sea
         AND showtime.showtime = TIMESTAMP '${showtime}'
         AND bill.Seat = '${seat}'
         `)
-    if(check.rows.length == 1){
+    if (check.rows.length == 1) {
         return true
-    }    
-    else{
+    }
+    else {
         return false
     }
 })
 
 const Update = (async (req) => {
-    let { username } = req.body; 
+    let { username } = req.body;
     try {
         const result = await database.query(`
             UPDATE BILL
@@ -130,8 +130,8 @@ const Update = (async (req) => {
 
 
 
-const Create = (async (idAccount , nameMovie , nameBranch , showtime , seat) => {
-    if(await CheckDuplicateSeatInBill( nameMovie , nameBranch , showtime , seat)){
+const Create = (async (idAccount, nameMovie, nameBranch, showtime, seat) => {
+    if (await CheckDuplicateSeatInBill(nameMovie, nameBranch, showtime, seat)) {
         return { message: 'Thanh toán không thành công do đã có khách hàng khác đặt vé thuộc ghế đó rồi !' };
     }
     try {

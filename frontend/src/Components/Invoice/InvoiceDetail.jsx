@@ -17,10 +17,10 @@ const InvoiceDetail = ({ data }) => {
           Giá vé: <span>{data.movie.price} VNĐ</span>
         </p>
         <p>
-          Số lượng: <span>{data.selectedSeats.length}</span>
+          Số lượng: <span>{data.selectedSeatsName.length}</span>
         </p>
         <p>
-          Tổng giá vé: <span>{data.movie.price * data.selectedSeats.length} VNĐ</span>
+          Tổng giá vé: <span>{data.movie.price * data.selectedSeatsName.length} VNĐ</span>
         </p>
         <p>
           Thuế: <span>Free</span>
@@ -28,7 +28,7 @@ const InvoiceDetail = ({ data }) => {
       </div>
       <div className="total-amount">
         <p>
-          Thành tiền: <span>{data.movie.price * data.selectedSeats.length} VNĐ</span>
+          Thành tiền: <span>{data.movie.price * data.selectedSeatsName.length} VNĐ</span>
         </p>
       </div>
     </div>

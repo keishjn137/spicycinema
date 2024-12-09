@@ -65,7 +65,7 @@ const Update = (async (ID, Name, Genre, Duration, Price, Directors, Actors, url_
             Actors = COALESCE('${Actors}', Actors),
             url_image_title = COALESCE('${url_image_title}', url_image_title),
             url_image_banner = COALESCE('${url_image_banner}', url_image_banner)
-      WHERE ID = '${ID}'
+            WHERE ID = ${ID}
       `  );
         return result.rows;
     } catch (error) {

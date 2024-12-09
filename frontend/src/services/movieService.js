@@ -10,8 +10,8 @@ export const getAllMovieById = (id) => {
     return axios.get(URL + `/movies/${id}`);
 }
 export const addMovie = (Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner) => {
-    return axios.post(URL + `/movies`,{Name, Genre, Duration, Price, Directors, Actors, url_image_title , url_image_banner });
+    return axios.post(URL + `/movies`, { Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner });
 }
-export const updateMovie = (id,Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner) => {
-    return axios.put(URL + `/movies/${id}`,{Name, Genre, Duration, Price, Directors, Actors, url_image_title , url_image_banner });
+export const updateMovie = (id, Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner) => {
+    return axios.put(URL + `/movies/${id}`, { Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner });
 }

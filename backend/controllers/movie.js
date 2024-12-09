@@ -26,6 +26,7 @@ const getById = async (req, res, next) => {
 const Create = async (req, res, next) => {
     try {
         let { Name, Genre, Duration, Price, Directors, Actors, url_image_title = null, url_image_banner = null } = req.body;
+        console.log(Name)
         const movies = await movie.Create(Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner);
         if (!movies) {
             return res.status(404).json({ message: 'Phim không tồn tại!' });
@@ -42,7 +43,6 @@ const Update = async (req, res, next) => {
         let ID = req.params.id;
         let { Name, Genre, Duration, Price, Directors, Actors, url_image_title = null, url_image_banner = null } = req.body;
         const movies = await movie.Update(ID, Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner);
-        console.log(ID)
         if (!movies) {
             return res.status(404).json({ message: 'Update không thành công!' });
         }

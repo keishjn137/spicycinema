@@ -31,7 +31,6 @@ const AdminMovie = () => {
         fetchMovies();
     }, []);
 
-    // Lọc phim theo tên hoặc thể loại khi nhập vào ô tìm kiếm
     const filteredMovies = movies.filter(movie =>
         movie.name.toLowerCase().includes(search.toLowerCase()) ||
         movie.genre.toLowerCase().includes(search.toLowerCase())
@@ -71,7 +70,6 @@ const AdminMovie = () => {
             setShowForm(false);
             alert("Thêm phim thành công!");
 
-            // Reset form
             setName('');
             setGenre('');
             setDuration('');
@@ -107,7 +105,7 @@ const AdminMovie = () => {
         }
 
         try {
-            const updatedMovie = await updateMovie(selectedMovieId, {
+            const updatedMovie = await updateMovie(selectedMovieId,
                 Name,
                 Genre,
                 Duration,
@@ -116,9 +114,9 @@ const AdminMovie = () => {
                 Actors,
                 url_image_title,
                 url_image_banner,
-            });
+            );
 
-            // Cập nhật lại danh sách phim
+
             setMovies((prevMovies) =>
                 prevMovies.map((movie) =>
                     movie.id === selectedMovieId ? updatedMovie : movie
@@ -128,7 +126,7 @@ const AdminMovie = () => {
             setShowForm(false);
             alert("Cập nhật phim thành công!");
 
-            // Reset form
+
             setIsEdit(false);
             setSelectedMovieId(null);
             setName('');
@@ -151,12 +149,12 @@ const AdminMovie = () => {
 
             <main className="admin-content">
                 <header className="admin-header">
-                    <input 
-                        type="text" 
-                        placeholder="Tìm kiếm phim..." 
-                        className="admin-search-bar" 
-                        value={search} 
-                        onChange={(e) => setSearch(e.target.value)} // Cập nhật tìm kiếm
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm phim..."
+                        className="admin-search-bar"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                     <div className="admin-user-info">
                         <span>Nguyen Duc Hoa</span>
