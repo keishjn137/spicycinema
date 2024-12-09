@@ -186,7 +186,7 @@ const MovieDetail = () => {
 
     const handlePaymentClick = () => {
         if (selectedSeats.length != 0) {
-            const data = { showTime, selectedSeats, movie };
+            const data = { showTime, selectedSeats, movie ,placeChoice };
             navigate('/payment', { state: data })
         }
     }
