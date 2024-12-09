@@ -10,6 +10,7 @@ const getAll = async (req, res, next) => {
     }
 };
 
+
 const getById = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -23,61 +24,37 @@ const getById = async (req, res, next) => {
     }
 };
 
-//  const getProductBySlugURL = async (req, res, next) => {
-//     try {
-//         const product = await account.getProductBySlugURL(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const Create = async (req, res, next) => {
+    try {
+        let { Name, Genre, Duration, Price, Directors, Actors, url_image_title = null, url_image_banner = null } = req.body;
+        const movies = await movie.Create(Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner);
+        if (!movies) {
+            return res.status(404).json({ message: 'Phim không tồn tại!' });
+        }
+        return res.status(200).json(movies);
+    } catch (error) {
+        next(error);
+    }
+};
 
-// const getListProductByCategory = async (req, res, next) => {
-//     try {
-//         const product = await account.getListProductByCategory(req);
-//         res.json(product);   
-//     } catch (error) {
-//         next(error);
-//     }
-// };
 
-//  const createProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.createProduct(req);
-//         res.status(201).json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const updateProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.updateProduct(req);
-//         res.json(product);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
-//  const deleteProduct = async (req, res, next) => {
-//     try {
-//         const product = await account.deleteProduct(req);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         res.json({ message: 'Product deleted successfully' });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+const Update = async (req, res, next) => {
+    try {
+        let ID = req.params.id;
+        let { Name, Genre, Duration, Price, Directors, Actors, url_image_title = null, url_image_banner = null } = req.body;
+        const movies = await movie.Update(ID, Name, Genre, Duration, Price, Directors, Actors, url_image_title, url_image_banner);
+        if (!movies) {
+            return res.status(404).json({ message: 'Update không thành công!' });
+        }
+        return res.status(200).json(movies);
+    } catch (error) {
+        next(error);
+    }
+};
 
 export {
     getAll,
-    getById
-    // ,
-    // getProductBySlugURL,
-    // createProduct,
-    // updateProduct,
-    // deleteProduct,
-    // getListProductByCategory
+    getById,
+    Create,
+    Update,
 };

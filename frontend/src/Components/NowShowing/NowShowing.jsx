@@ -15,7 +15,6 @@ import { getAllMovie } from '../../services/movieService';
 
 export const NowShowing = () => {
   const [movies, setMovies] = useState([]);
-  console.log(movies)
 
   useEffect(() => {
 

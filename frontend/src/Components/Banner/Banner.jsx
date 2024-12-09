@@ -29,7 +29,6 @@ const Banner = () => {
     fetchMovies();
   }, []);
 
-  console.log(selectedMovie)
 
   if (!selectedMovie) {
     return <div>Loading...</div>;

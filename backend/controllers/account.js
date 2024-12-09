@@ -19,13 +19,12 @@ const SignUp = async (req, res, next) => {
 };
 
 const SignIn = async (req, res, next) => {
-    let {username , password} = req.body ;
+    let { username, password } = req.body;
     try {
-        const dataSignIn = await account.SignIn(username , password);
-        console.log('Đăng nhập thành công !')
+        const dataSignIn = await account.SignIn(username, password);
         res.json(dataSignIn)
     }
-        catch (error) {
+    catch (error) {
         next(error);
     }
 };

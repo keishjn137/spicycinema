@@ -20,31 +20,29 @@ const SignIn = () => {
         if (!username.trim() || !password.trim()) {
             setErrorMessage('Tên người dùng và mật khẩu không được để trống.');
             return;
-        }
+        } else {
+            try {
+                const response = await signin(username, password);
+                console.log(response)
+                if (response.data.statusCode !== 200) {
+                    alert('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
 
-        setErrorMessage(''); 
-        setIsLoading(true);
+                } else {
+                    const data = response.data.data;
+                    dispatch(login({ userInfo: data }));
+                    navigate('/');
+                }
 
-        try {
-            // Call signin service with axios
-            const response = await signin(username.trim(), password.trim());
-
-            if (response.status !== 200) {
-                throw new Error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+            } catch (error) {
+                setErrorMessage(error.message || 'Đã có lỗi xảy ra.');
+            } finally {
+                setIsLoading(false);
             }
-
-            const data = response.data; 
-
-           
-            dispatch(login({ userInfo: data }));
-
-            
-            navigate('/');
-        } catch (error) {
-            setErrorMessage(error.message || 'Đã có lỗi xảy ra.');
-        } finally {
-            setIsLoading(false);
         }
+
+
+
+
     };
 
     return (
