@@ -24,7 +24,7 @@ const NavbarAdmin = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/">
+                        <NavLink to="/admin/movie">
                             <i className="icon">🎟</i>
                             Quản lí phim
                         </NavLink>

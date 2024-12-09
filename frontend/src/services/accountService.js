@@ -9,3 +9,7 @@ export const register = (username, password, gmail) => {
 export const signin = (username, password)=>{
     return axios.post(URL + '/accounts/sign-in',{username,password});
 }
+export const getAllUser = ()=>{
+    return axios.get(URL + '/accounts/');
+}
+

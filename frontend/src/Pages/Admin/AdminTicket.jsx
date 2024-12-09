@@ -1,27 +1,35 @@
-import React from 'react';
 import './AdminTicket.css';
 import NavbarAdmin from '../../Components/Navbar Admin/NavbarAdmin';
+import { getAllbill } from '../../services/billService';
+import React, { useEffect, useState } from 'react';
 
 const AdminTicket = () => {
-    const users = [
-        {
-            id: 1,
-            movie: 'Avengers: Endgame',
-            customer_email: 'hoa.nguyen@example.com',
-            show_time: '2024-12-06 14:00',
-            branch: 'Cinemax 1',
-            total_amount: '$100',
-        },
-        {
-            id: 2,
-            movie: 'Spider-Man: No Way Home',
-            customer_email: 'abc@example.com',
-            show_time: '2024-12-06 16:00',
-            branch: 'Cinemax 2',
-            total_amount: '$50',
-        },
-    ];
+    const [ticket, setTicket] = useState([]); 
+    const [search, setSearch] = useState(''); 
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await getAllbill(); 
+                console.log('Dữ liệu từ API:', data);
+                if (data && data.data && Array.isArray(data.data)) {
+                    setTicket(data.data); 
+                } else {
+                    console.warn('API không trả về danh sách hợp lệ');
+                }
+            } catch (err) {
+                console.error('Lỗi khi lấy danh sách vé:', err);
+            }
+        };
+
+        fetchUsers(); 
+    }, []); 
+
+ 
+    const filteredTickets = ticket.filter(user =>
+        user.moviename.toLowerCase().includes(search.toLowerCase()) || 
+        user.gmail.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div className="admin-container">
@@ -29,7 +37,13 @@ const AdminTicket = () => {
 
             <main className="admin-content">
                 <header className="admin-header">
-                    <input type="text" placeholder="Tìm kiếm..." className="admin-search-bar" />
+                    <input 
+                        type="text" 
+                        placeholder="Tìm kiếm..." 
+                        className="admin-search-bar" 
+                        value={search} 
+                        onChange={(e) => setSearch(e.target.value)} 
+                    />
                     <div className="admin-user-info">
                         <span>Nguyen Duc Hoa</span>
                         <img src="user-avatar.png" alt="User Avatar" className="admin-avatar" />
@@ -37,11 +51,11 @@ const AdminTicket = () => {
                 </header>
 
                 <div className="admin-management">
-                    <h1 className="admin-title">Quản lí ve</h1>
+                    <h1 className="admin-title">Quản lí vé</h1>
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                               
                                 <th>Phim</th>
                                 <th>Khách hàng</th>
                                 <th>Xuất chiếu</th>
@@ -50,14 +64,14 @@ const AdminTicket = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map(user => (
+                            {filteredTickets.map(user => (
                                 <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.movie}</td>
-                                    <td>{user.customer_email}</td>
-                                    <td>{user.show_time}</td>
-                                    <td>{user.branch}</td>
-                                    <td>{user.total_amount}</td>
+                                    
+                                    <td>{user.moviename}</td>
+                                    <td>{user.gmail}</td>
+                                    <td>{user.showtime}</td>
+                                    <td>{user.branchname}</td>
+                                    <td>{user.total_amount || 0 }</td>
                                 </tr>
                             ))}
                         </tbody>

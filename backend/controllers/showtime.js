@@ -6,7 +6,7 @@ const getAll = async (req, res, next) => {
     try {
         const idBranch = req.body.idBranch;
         const idMovie = req.body.idMovie;
-        console.log(idBranch, idMovie)
+        
         const showtimes = await showtime.getAll(idBranch, idMovie);
         if (!showtimes) {
             return res.status(404).json({ message: 'xuất chiếu không tồn tại!' });

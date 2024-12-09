@@ -6,6 +6,7 @@ import MovieDetail from './Pages/MovieDetail/MovieDetail';
 import Payment from './Pages/Payment/Payment';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
+import AdminMovie from './Pages/Admin/AdminMovie'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/admin/ticket" element={<AdminTicket />} />
           <Route path="/admin/user" element={<AdminUser />} />
+          <Route path="/admin/movie" element={<AdminMovie />} />
         </Routes>
       </Router>
 

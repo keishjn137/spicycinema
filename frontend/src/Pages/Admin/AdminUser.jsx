@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './AdminTicket.css';
 import NavbarAdmin from '../../Components/Navbar Admin/NavbarAdmin';
+import { getAllUser } from '../../services/accountService';
 
 const AdminUser = () => {
-    const users = [
-        {
-            id: 1,
-            name: 'Hoa Nguyen',
-            email: 'hoa.nguyen@example.com',
-            total_amount: '$100',
-        },
-        {
-            id: 2,
-            name: 'Abc',
-            email: 'abc@example.com',
-            total_amount: '$50',
-        },
-    ];
+    const [users, setUsers] = useState([]);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await getAllUser();
+                if (data && data.data) {
+                    setUsers(data.data);
+                    console.log(data)
+                } else {
+                    console.warn('API không trả về dữ liệu hợp lệ');
+                }
+            } catch (err) {
+                console.error('Lỗi khi lấy danh sách người dùng:', err);
+            }
+        };
 
+        fetchUsers();
+    }, []);
 
     return (
         <div className="admin-container">
@@ -45,12 +49,12 @@ const AdminUser = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map(user => (
+                            {users && users.map((user) => (
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.total_amount}</td>
+                                    <td>{user.username}</td>
+                                    <td>{user.gmail}</td>
+                                    <td>{user.total_amount || 0}</td>
                                 </tr>
                             ))}
                         </tbody>
