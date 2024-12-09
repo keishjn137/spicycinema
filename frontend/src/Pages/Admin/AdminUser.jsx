@@ -4,7 +4,8 @@ import NavbarAdmin from '../../Components/Navbar Admin/NavbarAdmin';
 import { getAllUser } from '../../services/accountService';
 
 const AdminUser = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]); // State để lưu danh sách người dùng
+    const [search, setSearch] = useState(''); // State để lưu giá trị tìm kiếm
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -12,7 +13,7 @@ const AdminUser = () => {
                 const data = await getAllUser();
                 if (data && data.data) {
                     setUsers(data.data);
-                    console.log(data)
+                    console.log(data);
                 } else {
                     console.warn('API không trả về dữ liệu hợp lệ');
                 }
@@ -21,8 +22,14 @@ const AdminUser = () => {
             }
         };
 
-        fetchUsers();
+        fetchUsers(); // Gọi API khi component mount
     }, []);
+
+    // Lọc người dùng theo tên hoặc email khi nhập vào ô tìm kiếm
+    const filteredUsers = users.filter(user =>
+        user.username.toLowerCase().includes(search.toLowerCase()) ||
+        user.gmail.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div className="admin-container">
@@ -30,7 +37,13 @@ const AdminUser = () => {
 
             <main className="admin-content">
                 <header className="admin-header">
-                    <input type="text" placeholder="Tìm kiếm..." className="admin-search-bar" />
+                    <input 
+                        type="text" 
+                        placeholder="Tìm kiếm..." 
+                        className="admin-search-bar" 
+                        value={search} 
+                        onChange={(e) => setSearch(e.target.value)} // Cập nhật giá trị tìm kiếm khi người dùng nhập
+                    />
                     <div className="admin-user-info">
                         <span>Nguyen Duc Hoa</span>
                         <img src="user-avatar.png" alt="User Avatar" className="admin-avatar" />
@@ -49,7 +62,7 @@ const AdminUser = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users && users.map((user) => (
+                            {filteredUsers.map((user) => (
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>

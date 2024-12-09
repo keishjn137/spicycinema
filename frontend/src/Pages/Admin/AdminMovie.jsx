@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './AdminTicket.css';
 import NavbarAdmin from '../../Components/Navbar Admin/NavbarAdmin';
-import { getAllMovie, addMovie, updateMovie } from '../../services/movieService'; // Đảm bảo bạn có hàm updateMovie
+import { getAllMovie, addMovie, updateMovie } from '../../services/movieService';
 
 const AdminMovie = () => {
-    const [movies, setMovies] = useState([]);
-    const [showForm, setShowForm] = useState(false);
+    const [movies, setMovies] = useState([]); // Danh sách phim
+    const [showForm, setShowForm] = useState(false); // Hiển thị form thêm hoặc chỉnh sửa phim
     const [isEdit, setIsEdit] = useState(false); // Biến xác định xem có phải đang chỉnh sửa không
-    const [selectedMovieId, setSelectedMovieId] = useState(null); // ID của phim đang chỉnh sửa
+    const [selectedMovieId, setSelectedMovieId] = useState(null); // ID phim đang chỉnh sửa
     const [Name, setName] = useState('');
     const [Genre, setGenre] = useState('');
     const [Duration, setDuration] = useState('');
@@ -16,6 +16,7 @@ const AdminMovie = () => {
     const [Actors, setActors] = useState('');
     const [url_image_title, setUrlImageTitle] = useState('');
     const [url_image_banner, setUrlImageBanner] = useState('');
+    const [search, setSearch] = useState(''); // State cho tìm kiếm phim
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -29,6 +30,12 @@ const AdminMovie = () => {
 
         fetchMovies();
     }, []);
+
+    // Lọc phim theo tên hoặc thể loại khi nhập vào ô tìm kiếm
+    const filteredMovies = movies.filter(movie =>
+        movie.name.toLowerCase().includes(search.toLowerCase()) ||
+        movie.genre.toLowerCase().includes(search.toLowerCase())
+    );
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
@@ -144,7 +151,13 @@ const AdminMovie = () => {
 
             <main className="admin-content">
                 <header className="admin-header">
-                    <input type="text" placeholder="Tìm kiếm..." className="admin-search-bar" />
+                    <input 
+                        type="text" 
+                        placeholder="Tìm kiếm phim..." 
+                        className="admin-search-bar" 
+                        value={search} 
+                        onChange={(e) => setSearch(e.target.value)} // Cập nhật tìm kiếm
+                    />
                     <div className="admin-user-info">
                         <span>Nguyen Duc Hoa</span>
                         <img src="user-avatar.png" alt="User Avatar" className="admin-avatar" />
@@ -162,6 +175,7 @@ const AdminMovie = () => {
                             <div className="add-movie-form">
                                 <h2>{isEdit ? "Cập nhật Phim" : "Thêm Phim Mới"}</h2>
                                 <form onSubmit={isEdit ? handleUpdateMovie : handleAddMovie}>
+                                    {/* Các input form như cũ */}
                                     <div className="form-group">
                                         <label>Name:</label>
                                         <input
@@ -269,7 +283,7 @@ const AdminMovie = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {movies.map((movie) => (
+                            {filteredMovies.map((movie) => (
                                 <tr key={movie.id}>
                                     <td>{movie.id}</td>
                                     <td>{movie.name}</td>
